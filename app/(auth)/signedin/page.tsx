@@ -19,8 +19,6 @@ export default function SignedInPage() {
             router.push("/app");
           }
         });
-    } else {
-      router.push("/");
     }
   }, [session, status]);
 }
