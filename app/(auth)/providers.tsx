@@ -17,7 +17,7 @@ function Validator() {
   const { data: session, status } = useSession();
   const router = useRouter();
   useEffect(() => {
-    if (status != "unauthenticated") {
+    if (status === "unauthenticated") {
       router.push("/");
     }
   }, [session, status]);
