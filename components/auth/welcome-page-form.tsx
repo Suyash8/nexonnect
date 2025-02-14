@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import UsernameInput from "./usernameInput";
 import DisplayNameInput from "./displayNameInput";
+import ProfilePictureDisplay from "./profilePictureDisplay";
 
 export default function WelcomePageForm() {
   const { data: session, status } = useSession();
@@ -28,6 +29,7 @@ export default function WelcomePageForm() {
   return (
     <form>
       <div className="grid gap-6">
+        <ProfilePictureDisplay />
         <UsernameInput
           username={username}
           setUsername={setUsername}
