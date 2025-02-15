@@ -29,7 +29,7 @@ export default function DisplayNameInput({
       setDisplayName(username);
       setDisplayNameError("");
     }
-  }, [username, useUsername]);
+  }, [username, useUsername, setDisplayName]);
 
   useEffect(() => {
     if (!displayNameTouched || useUsername) return;

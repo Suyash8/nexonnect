@@ -44,6 +44,7 @@ export const options: NextAuthOptions = {
     },
 
     async redirect({ url, baseUrl }) {
+      console.log(url);
       return `${baseUrl}/signedin`;
     },
   },

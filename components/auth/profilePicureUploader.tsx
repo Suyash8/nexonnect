@@ -19,12 +19,11 @@ function ProfilePicureUploader({
   image: File | undefined;
   setAvatar: Dispatch<SetStateAction<string>>;
 }) {
-  if (!image) return <></>;
-
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
 
+  if (!image) return <></>;
   return (
     <AlertDialogContent>
       <AlertDialogHeader>
@@ -161,6 +160,7 @@ async function getCroppedImg(
     croppedCanvas.toBlob((file) => {
       resolve(URL.createObjectURL(file as Blob));
     }, "image/jpeg");
+    console.log(reject);
   });
 }
 

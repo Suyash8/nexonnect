@@ -17,7 +17,7 @@ function GoogleAuthButton() {
 }
 
 function ChooseButton() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   return status === "authenticated" ? <LaunchApp /> : <Google />;
 }
 

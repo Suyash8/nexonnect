@@ -19,10 +19,90 @@ import { ScrollArea } from "../ui/scroll-area";
 
 type OptionsType = {
   backgroundColor: string[];
-  eyebrows: readonly string[];
-  eyes: readonly string[];
-  glasses: readonly string[];
-  mouth: readonly string[];
+  eyebrows: readonly [
+    "variant01",
+    "variant02",
+    "variant03",
+    "variant04",
+    "variant05",
+    "variant06",
+    "variant07",
+    "variant08",
+    "variant09",
+    "variant10",
+    "variant11",
+    "variant12",
+    "variant13",
+    "variant14",
+    "variant15"
+  ];
+  eyes: readonly [
+    "variant01",
+    "variant02",
+    "variant03",
+    "variant04",
+    "variant05",
+    "variant06",
+    "variant07",
+    "variant08",
+    "variant09",
+    "variant10",
+    "variant11",
+    "variant12",
+    "variant13",
+    "variant14",
+    "variant15",
+    "variant16",
+    "variant17",
+    "variant18",
+    "variant19",
+    "variant20",
+    "variant21",
+    "variant22",
+    "variant23",
+    "variant24",
+    "variant25",
+    "variant26"
+  ];
+  glasses: readonly [
+    "variant01",
+    "variant02",
+    "variant03",
+    "variant04",
+    "variant05"
+  ];
+  mouth: readonly [
+    "variant01",
+    "variant02",
+    "variant03",
+    "variant04",
+    "variant05",
+    "variant06",
+    "variant07",
+    "variant08",
+    "variant09",
+    "variant10",
+    "variant11",
+    "variant12",
+    "variant13",
+    "variant14",
+    "variant15",
+    "variant16",
+    "variant17",
+    "variant18",
+    "variant19",
+    "variant20",
+    "variant21",
+    "variant22",
+    "variant23",
+    "variant24",
+    "variant25",
+    "variant26",
+    "variant27",
+    "variant28",
+    "variant29",
+    "variant30"
+  ];
 };
 type CurrentOptionsType = {
   backgroundColor: string[];
@@ -184,7 +264,7 @@ function AvatarCustomizer({
                       onClick={() =>
                         setAvatarOptions({
                           ...avatarOptions,
-                          backgroundColor: [color as any],
+                          backgroundColor: [color],
                         })
                       }
                     >
@@ -192,7 +272,7 @@ function AvatarCustomizer({
                         selected={color === avatarOptions.backgroundColor[0]}
                         avatarOptions={{
                           ...avatarOptions,
-                          backgroundColor: [color as any],
+                          backgroundColor: [color],
                         }}
                       />
                     </Button>
@@ -211,7 +291,7 @@ function AvatarCustomizer({
                       onClick={() =>
                         setAvatarOptions({
                           ...avatarOptions,
-                          eyebrows: [eyebrow as any],
+                          eyebrows: [eyebrow],
                         })
                       }
                     >
@@ -219,7 +299,7 @@ function AvatarCustomizer({
                         selected={eyebrow === avatarOptions.eyebrows[0]}
                         avatarOptions={{
                           ...avatarOptions,
-                          eyebrows: [eyebrow as any],
+                          eyebrows: [eyebrow],
                         }}
                       />
                     </Button>
@@ -238,7 +318,7 @@ function AvatarCustomizer({
                       onClick={() =>
                         setAvatarOptions({
                           ...avatarOptions,
-                          eyes: [eye as any],
+                          eyes: [eye],
                         })
                       }
                     >
@@ -246,7 +326,7 @@ function AvatarCustomizer({
                         selected={eye === avatarOptions.eyes[0]}
                         avatarOptions={{
                           ...avatarOptions,
-                          eyes: [eye as any],
+                          eyes: [eye],
                         }}
                       />
                     </Button>
@@ -265,7 +345,7 @@ function AvatarCustomizer({
                       onClick={() =>
                         setAvatarOptions({
                           ...avatarOptions,
-                          glasses: [glass as any],
+                          glasses: [glass],
                         })
                       }
                     >
@@ -277,7 +357,7 @@ function AvatarCustomizer({
                         }
                         avatarOptions={{
                           ...avatarOptions,
-                          glasses: [glass as any],
+                          glasses: [glass],
                         }}
                       />
                     </Button>
@@ -296,7 +376,7 @@ function AvatarCustomizer({
                       onClick={() =>
                         setAvatarOptions({
                           ...avatarOptions,
-                          mouth: [color as any],
+                          mouth: [color],
                         })
                       }
                     >
@@ -304,7 +384,7 @@ function AvatarCustomizer({
                         selected={color === avatarOptions.mouth[0]}
                         avatarOptions={{
                           ...avatarOptions,
-                          mouth: [color as any],
+                          mouth: [color],
                         }}
                       />
                     </Button>
@@ -316,16 +396,16 @@ function AvatarCustomizer({
         </div>
         <DrawerFooter className="flex flex-row w-full">
           <DrawerClose asChild>
+            <Button className="w-full" variant="outline">
+              Cancel
+            </Button>
+          </DrawerClose>
+          <DrawerClose asChild>
             <Button
               onClick={() => setCurrentOptions(avatarOptions)}
               className="w-full"
             >
               Submit
-            </Button>
-          </DrawerClose>
-          <DrawerClose asChild>
-            <Button className="w-full" variant="outline">
-              Cancel
             </Button>
           </DrawerClose>
         </DrawerFooter>

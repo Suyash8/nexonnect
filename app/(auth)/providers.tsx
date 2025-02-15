@@ -20,7 +20,7 @@ function Validator() {
     if (status === "unauthenticated") {
       router.push("/");
     }
-  }, [session, status]);
+  }, [session, status, router]);
   return <></>;
 }
 

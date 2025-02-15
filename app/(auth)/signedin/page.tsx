@@ -20,5 +20,5 @@ export default function SignedInPage() {
           }
         });
     }
-  }, [session, status]);
+  }, [session, status, router]);
 }
