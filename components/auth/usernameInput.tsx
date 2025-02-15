@@ -23,6 +23,11 @@ interface UsernameInputProps {
   setUsername: (value: string) => void;
   setUsernameTouched: (value: boolean) => void;
   usernameTouched: boolean;
+  usernameError: string;
+  setUsernameError: (error: string) => void;
+  usernameAvailable: boolean;
+  setUsernameAvailable: (available: boolean) => void;
+  formSubmitted: boolean;
 }
 
 export default function UsernameInput({
@@ -30,13 +35,16 @@ export default function UsernameInput({
   setUsername,
   setUsernameTouched,
   usernameTouched,
+  usernameError,
+  setUsernameError,
+  usernameAvailable,
+  setUsernameAvailable,
+  formSubmitted,
 }: UsernameInputProps) {
-  const [usernameError, setUsernameError] = useState("");
-  const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [debouncedUsername] = useDebounce(username, 500);
 
-  useEffect(() => {
-    if (!usernameTouched) return;
+  // Validate username format
+  const validateUsername = (username: string) => {
     if (!/^[a-zA-Z0-9_-]{3,30}$/.test(username)) {
       setUsernameError(
         "Username must be 3-30 characters (letters, numbers, - or _)."
@@ -45,12 +53,11 @@ export default function UsernameInput({
     } else {
       setUsernameError("");
     }
-  }, [username, usernameTouched]);
+  };
 
-  useEffect(() => {
-    if (!usernameTouched || usernameError) return;
-
-    fetch(`/api/auth/checkUsername?username=${debouncedUsername}`)
+  // Check if the username is already taken
+  const validateUsernameTaken = (username: string) => {
+    fetch(`/api/auth/checkUsername?username=${username}`)
       .then((res) => res.json())
       .then((data) => {
         setUsernameAvailable(data.available);
@@ -58,6 +65,16 @@ export default function UsernameInput({
           setUsernameError("Username is already taken.");
         }
       });
+  };
+
+  useEffect(() => {
+    if (!usernameTouched) return;
+    validateUsername(username);
+  }, [username, usernameTouched]);
+
+  useEffect(() => {
+    if (!usernameTouched || usernameError) return;
+    validateUsernameTaken(debouncedUsername);
   }, [debouncedUsername, usernameTouched]);
 
   return (
@@ -94,12 +111,14 @@ export default function UsernameInput({
           </Tooltip>
         </TooltipProvider>
       </div>
-      {usernameTouched && usernameError && (
+      {(usernameTouched || formSubmitted) && usernameError && (
         <p className="text-red-500 text-sm">{usernameError}</p>
       )}
-      {usernameTouched && usernameAvailable && (
-        <p className="text-green-500 text-sm">Username is available!</p>
-      )}
+      {(usernameTouched || formSubmitted) &&
+        usernameAvailable &&
+        !usernameError && (
+          <p className="text-green-500 text-sm">Username is available!</p>
+        )}
     </div>
   );
 }

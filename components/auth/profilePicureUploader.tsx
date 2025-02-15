@@ -54,7 +54,9 @@ function ProfilePicureUploader({
               URL.createObjectURL(image),
               croppedAreaPixels as Area,
               0
-            ).then((value) => setAvatar(value as string))
+            ).then((value) => {
+              if (value) setAvatar(value);
+            })
           }
         >
           Submit
@@ -160,7 +162,6 @@ async function getCroppedImg(
     croppedCanvas.toBlob((file) => {
       resolve(URL.createObjectURL(file as Blob));
     }, "image/jpeg");
-    console.log(reject);
   });
 }
 

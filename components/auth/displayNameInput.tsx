@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,13 @@ interface DisplayNameInputProps {
   useUsername: boolean;
   setUseUsername: (value: boolean) => void;
   username: string;
+  validateDisplayName: (
+    displayName: string,
+    setDisplayNameError: Dispatch<SetStateAction<string>>
+  ) => void;
+  formSubmitted: boolean;
+  displayNameError: string;
+  setDisplayNameError: Dispatch<SetStateAction<string>>;
 }
 
 export default function DisplayNameInput({
@@ -19,8 +26,11 @@ export default function DisplayNameInput({
   useUsername,
   setUseUsername,
   username,
+  validateDisplayName,
+  formSubmitted,
+  displayNameError,
+  setDisplayNameError,
 }: DisplayNameInputProps) {
-  const [displayNameError, setDisplayNameError] = useState("");
   const [displayNameTouched, setDisplayNameTouched] = useState(false);
   const [prevDisplayName, setPrevDisplayName] = useState("");
 
@@ -29,18 +39,12 @@ export default function DisplayNameInput({
       setDisplayName(username);
       setDisplayNameError("");
     }
-  }, [username, useUsername, setDisplayName]);
+  }, [username, useUsername, setDisplayName, setDisplayNameError]);
 
   useEffect(() => {
     if (!displayNameTouched || useUsername) return;
-    if (!/^[a-zA-Z0-9_\- ]{3,30}$/.test(displayName)) {
-      setDisplayNameError(
-        "Display name must be 3-30 characters (letters, numbers, spaces)."
-      );
-    } else {
-      setDisplayNameError("");
-    }
-  }, [displayName, displayNameTouched, useUsername]);
+    validateDisplayName(displayName, setDisplayNameError);
+  }, [displayName, displayNameTouched, useUsername, validateDisplayName]);
 
   return (
     <div className="grid gap-2">
@@ -74,7 +78,7 @@ export default function DisplayNameInput({
         disabled={useUsername}
         required
       />
-      {displayNameTouched && displayNameError && (
+      {(displayNameTouched || formSubmitted) && displayNameError && (
         <p className="text-red-500 text-sm">{displayNameError}</p>
       )}
     </div>

@@ -10,7 +10,7 @@ import {
 import { Drawer, DrawerTrigger } from "../ui/drawer";
 import { createAvatar } from "@dicebear/core";
 import { adventurerNeutral } from "@dicebear/collection";
-import { useMemo, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { RxAvatar } from "react-icons/rx";
 import AvatarCustomizer from "./avatarCustomizer";
@@ -24,17 +24,20 @@ import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog";
 import ProfilePicureUploader from "./profilePicureUploader";
 import { Input } from "../ui/input";
 
-export default function ProfilePictureDisplay() {
+export default function ProfilePictureDisplay({
+  avatar,
+  setAvatar,
+}: {
+  avatar: string;
+  setAvatar: Dispatch<SetStateAction<string>>;
+}) {
   const [currentOptions, setCurrentOptions] = useState(randomizeOptions);
-  const [avatar, setAvatar] = useState(
-    createAvatar(adventurerNeutral, currentOptions).toDataUri()
-  );
   const [imageData, setImageData] = useState<File>();
 
   const fileRef = useRef<HTMLInputElement>(null);
   const alertRef = useRef<HTMLButtonElement>(null);
 
-  useMemo(() => {
+  useEffect(() => {
     setAvatar(createAvatar(adventurerNeutral, currentOptions).toDataUri());
   }, [currentOptions]);
 
