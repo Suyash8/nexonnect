@@ -9,7 +9,7 @@ import {
 } from "../ui/drawer";
 import { RxAvatar } from "react-icons/rx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import { adventurerNeutral } from "@dicebear/collection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -120,6 +120,8 @@ function AvatarCustomizer({
   options: OptionsType;
 }) {
   const [avatarOptions, setAvatarOptions] = useState(currentOptions);
+
+  useMemo(() => setAvatarOptions(currentOptions), [currentOptions]);
 
   function DisplayAvatar({
     avatarOptions,
